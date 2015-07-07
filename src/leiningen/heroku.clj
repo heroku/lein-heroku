@@ -18,10 +18,16 @@
       (if (contains? project :uberjar-name) (log-warn "Uberjar detected but no Procfile found!"))
       {"web" "lein with-profile production trampoline run"})))
 
+; (def lein-default-profile "{:user { :offline? true :checksum :ignore }}")
+
+(def lein-default-profile "{:user  {
+  :checksum :ignore
+  :mirrors  {\"local\" {:url \"file:///app/.m2/repository\" :checksum :ignore}}}}")
+
 (defn- vendor-dependencies [dependency-key project]
   (classpath/get-dependencies dependency-key (merge (select-keys project [dependency-key
-    :offline? :update :checksum :mirrors])
-    {:repositories [["local" {:url (str "file:" (.getPath (io/file (System/getProperty "user.home") ".m2" "repository")))}]]
+    :update :checksum :mirrors])
+    {:repositories [["central" {:url (str "file:" (.getPath (io/file (System/getProperty "user.home") ".m2" "repository")))}]]
     :local-repo (java.io.File. (:root project) "target/heroku/app/.m2/repository")})))
 
 (defn deploy-uberjar
@@ -45,6 +51,8 @@
         (logDebug [msg] (main/debug msg))
         (prepare [includedFiles processTypes]
           (main/info "-----> Vendoring dependencies...")
+          (.mkdirs (java.io.File. (:root project) "target/heroku/app/.lein"))
+          (spit (java.io.File. (:root project) "target/heroku/app/.lein/profiles.clj") lein-default-profile)
           (vendor-dependencies :dependencies project)
           (vendor-dependencies :plugins project)
           (proxy-super prepare includedFiles processTypes)
@@ -52,7 +60,7 @@
     (.deploy app
       (map (fn [x] (root-file project x)) (or
         (:include-files (:heroku project))
-        ["target", "src", "project.clj"]))
+        ["target", "src", "resources", "project.clj"]))
       {}
       (or (:jdk-version (:heroku project)) "1.8")
       "cedar-14"
