@@ -18,9 +18,7 @@
       (if (contains? project :uberjar-name) (log-warn "Uberjar detected but no Procfile found!"))
       {"web" "lein with-profile production trampoline run"})))
 
-(def lein-default-profile "{:user  {
-  :offline? true
-  :checksum :ignore
+(def lein-default-profile "{:user  { :offline? true :checksum :ignore
   :mirrors  {\"local\" {:url \"file:///app/.m2/repository\" :checksum :ignore}}}}")
 
 (defn- vendor-dependencies [dependency-key project]
@@ -54,8 +52,7 @@
           (spit (java.io.File. (:root project) "target/heroku/app/.lein/profiles.clj") lein-default-profile)
           (vendor-dependencies :dependencies project)
           (vendor-dependencies :plugins project)
-          (proxy-super prepare includedFiles processTypes)
-          ))]
+          (proxy-super prepare includedFiles processTypes) ))]
     (.deploy app
       (map (fn [x] (root-file project x)) (or
         (:include-files (:heroku project))
