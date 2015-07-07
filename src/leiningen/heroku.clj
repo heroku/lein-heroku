@@ -18,15 +18,14 @@
       (if (contains? project :uberjar-name) (log-warn "Uberjar detected but no Procfile found!"))
       {"web" "lein with-profile production trampoline run"})))
 
-; (def lein-default-profile "{:user { :offline? true :checksum :ignore }}")
-
 (def lein-default-profile "{:user  {
+  :offline? true
   :checksum :ignore
   :mirrors  {\"local\" {:url \"file:///app/.m2/repository\" :checksum :ignore}}}}")
 
 (defn- vendor-dependencies [dependency-key project]
   (classpath/get-dependencies dependency-key (merge (select-keys project [dependency-key
-    :update :checksum :mirrors])
+    :update :checksum])
     {:repositories [["central" {:url (str "file:" (.getPath (io/file (System/getProperty "user.home") ".m2" "repository")))}]]
     :local-repo (java.io.File. (:root project) "target/heroku/app/.m2/repository")})))
 
