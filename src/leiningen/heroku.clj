@@ -21,7 +21,7 @@
 (defn- vendor-dependencies [dependency-key project]
   (classpath/get-dependencies dependency-key (merge (select-keys project [dependency-key
     :offline? :update :checksum :mirrors])
-    {:repositories [["local" {:checksum :ignore :url (str "file:" (.getPath (io/file (System/getProperty "user.home") ".m2" "repository")))}]]
+    {:repositories [["local" {:url (str "file:" (.getPath (io/file (System/getProperty "user.home") ".m2" "repository")))}]]
     :local-repo (java.io.File. (:root project) "target/heroku/app/.m2/repository")})))
 
 (defn deploy-uberjar
