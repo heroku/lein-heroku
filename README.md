@@ -14,7 +14,7 @@ Add the following to your `project.clj` file:
 
 Next, add something like this to your `project.clj` if you do not have a Heroku Git repo in your `git remote`s.
 
-```scala
+```clj
 :heroku {:app-name "your-heroku-app-name"}
 ```
 
@@ -40,15 +40,16 @@ And replace "xxx-xxx-xxxx" with the value of your Heroku API token.
 
 You may set a `:heroku` element in your `project.clj` like so:
 
-```scala
+```clj
 :heroku {
-  :jdk-version "your-heroku-app-name"
+  :app-name "your-heroku-app-name"
+  :jdk-version "1.8"
   :include-files ["target/myapp.jar"]
-  :process-types {
-    "web" "java -jar target/myapp.jar"}}
+  :process-types { "web" "java -jar target/myapp.jar" }}
 ```
 
-By default, the plugin will include the `target` directory.
+By default, the plugin will include the `target` directory for Uberjar.
+Otherwise it will include the `target`, `src`, `resource`, and `project.clj`.
 
 
 ## License
