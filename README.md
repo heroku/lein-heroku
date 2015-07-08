@@ -49,3 +49,10 @@ You may set a `:heroku` element in your `project.clj` like so:
 ```
 
 By default, the plugin will include the `target` directory.
+
+
+## License
+
+Source Copyright © 2015 Heroku.
+Distributed under the Eclipse Public License, the same as Clojure
+uses. See the file COPYING.
