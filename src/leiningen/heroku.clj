@@ -8,18 +8,12 @@
   (:import [com.heroku.sdk.deploy App]
            [java.io File]))
 
+(def lein-default-profile "{:user  { :offline? true :checksum :ignore
+  :mirrors  {\"local\" {:url \"file:///app/.m2/repository\" :checksum :ignore}}}}")
+
 (defn- root-file [project & [f]] (new File (str (:root project) (File/separator) f)))
 
 (defn- log-warn [msg] (main/warn "WARNING:" msg))
-
-(defn- default-process-types [project]
-  (if (.exists (root-file project "Procfile")) {}
-    (do
-      (if (contains? project :uberjar-name) (log-warn "Uberjar detected but no Procfile found!"))
-      {"web" "lein with-profile production trampoline run"})))
-
-(def lein-default-profile "{:user  { :offline? true :checksum :ignore
-  :mirrors  {\"local\" {:url \"file:///app/.m2/repository\" :checksum :ignore}}}}")
 
 (defn- vendor-dependencies [dependency-key project]
   (classpath/get-dependencies dependency-key (merge (select-keys project [dependency-key
@@ -27,12 +21,30 @@
     {:repositories [["central" {:url (str "file:" (.getPath (io/file (System/getProperty "user.home") ".m2" "repository")))}]]
     :local-repo (java.io.File. (:root project) "target/heroku/app/.m2/repository")})))
 
-(defn deploy-uberjar
+(defn- deploy-uberjar
   "Deploy the uberjar to Heroku"
   [project]
-  (main/info "todo"))
+  (let [logLevel (Integer/parseInt (System/getProperty "heroku.logLevel" "3"))
+        app (proxy [App] [
+          "lein-heroku"
+          (get-in project [:heroku :app-name])
+          (root-file project)
+          (root-file project "target")
+          []]
+          (logWarn [msg] (log-warn msg))
+          (logInfo [msg] (main/info msg))
+          (logDebug [msg] (main/debug msg)))]
+    (.deploy app
+      (map (fn [x] (root-file project x)) (or
+        (:include-files (:heroku project))
+        ["target"]))
+      {}
+      (or (:jdk-version (:heroku project)) "1.8")
+      "cedar-14"
+      (or (:process-types (:heroku project)) {})
+      "slug.tgz")))
 
-(defn deploy
+(defn- deploy-lein
   "Deploy directories and dependencies to Heroku"
   [project]
   (let [logLevel (Integer/parseInt (System/getProperty "heroku.logLevel" "3"))
@@ -60,11 +72,17 @@
       {}
       (or (:jdk-version (:heroku project)) "1.8")
       "cedar-14"
-      (or (:process-types (:heroku project)) (default-process-types project))
+      (or (:process-types (:heroku project)) {"web" "lein with-profile production trampoline run"})
       "slug.tgz")))
 
 (defn heroku
   "Deploy to Heroku PaaS"
   [project & cmd]
   (case (first cmd)
-    "deploy" (apply deploy [project])))
+    "deploy" (if (contains? project :uberjar-name)
+      (apply deploy-uberjar [project])
+      (apply deploy-lein [project]))
+    "deploy-lein"
+      (apply deploy-lein [project])
+    "deploy-uberjar"
+      (apply deploy-uberjar [project])))
