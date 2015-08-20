@@ -4,6 +4,10 @@ Heroku Leiningen Plugin
 This plugin is used to deploy Clojure applications directly to Heroku without pushing to a Git repository.
 This is can be useful when deploying from a CI server or when the Leiningen build is complex.
 
+## Requirements
+
+Your application must be built as an [uberjar](https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md#uberjar).
+
 ## Using the Plugin
 
 Add the following to your `project.clj` file:

@@ -37,9 +37,9 @@
 (defn- deploy-lein
   "Deploy directories and dependencies to Heroku"
   [project]
-  (println "This plugin only supports Uberjar deployment!\n"
-           "See the Leiningen docs for more information:\n"
-           "https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md#uberjar"))
+  (main/info "This plugin only supports Uberjar deployment!\n"
+             "See the Leiningen docs for more information:\n"
+             "https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md#uberjar"))
 
 (defn heroku
   "Deploy to Heroku PaaS"
