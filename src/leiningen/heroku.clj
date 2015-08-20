@@ -8,7 +8,8 @@
   (:import [com.heroku.sdk.deploy App]
            [java.io File]))
 
-(defn- root-file [project & [f]] (new File (str (:root project) (File/separator) f)))
+(defn- root-file [project & [f]]
+  (new File (str (:root project) (File/separator) f)))
 
 (defn- log-warn [msg] (main/warn "WARNING:" msg))
 
