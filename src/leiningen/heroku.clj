@@ -8,6 +8,8 @@
   (:import [com.heroku.sdk.deploy App]
            [java.io File]))
 
+(defn- file-join [f1 f2] (str f1 (File/separator) f2))
+
 (defn- root-file [project & [f]]
   (new File (str (:root project) (File/separator) f)))
 
@@ -28,7 +30,7 @@
     (.deploy app
       (map (fn [x] (root-file project x)) (or
         (:include-files (:heroku project))
-        ["target"]))
+        [(file-join "target" (:uberjar-name project))]))
       {}
       (or (:jdk-version (:heroku project)) "1.8")
       "cedar-14"
@@ -39,7 +41,7 @@
   "Deploy directories and dependencies to Heroku"
   [project]
   (main/info "This plugin only supports Uberjar deployment!\n"
-             "See the Leiningen docs for more information:\n"
+             "See the Leiningen docs for information on how to configure this:\n"
              "https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md#uberjar"))
 
 (defn heroku

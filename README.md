@@ -6,7 +6,8 @@ This is can be useful when deploying from a CI server or when the Leiningen buil
 
 ## Requirements
 
-Your application must be built as an [uberjar](https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md#uberjar).
++  Your application must be built as an [uberjar](https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md#uberjar).
++  You must use Java 1.7 or higher locally.
 
 ## Using the Plugin
 
@@ -35,10 +36,6 @@ $ HEROKU_API_KEY="xxx-xxx-xxxx" lein heroku deploy
 ```
 
 And replace "xxx-xxx-xxxx" with the value of your Heroku API token.
-
-### Requirements
-
-+  You must use Java 1.7 or higher locally.
 
 ### Configuring the Plugin
 
