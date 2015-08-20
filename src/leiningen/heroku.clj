@@ -8,17 +8,25 @@
   (:import [com.heroku.sdk.deploy App]
            [java.io File]))
 
-(defn- file-join [f1 f2] (str f1 (File/separator) f2))
+(defn file-join [f1 f2] (str f1 (File/separator) f2))
+
+(defn uberjar-missing [project]
+  (and (not (.exists (io/file (file-join "target" (:uberjar-name project)))))
+       (not (:include-files (:heroku project)))))
 
 (defn- root-file [project & [f]]
   (new File (str (:root project) (File/separator) f)))
+
+(defn- log-error [msg] (do (main/warn "ERROR:" msg) (System/exit 1)))
 
 (defn- log-warn [msg] (main/warn "WARNING:" msg))
 
 (defn- deploy-uberjar
   "Deploy the uberjar to Heroku"
   [project]
-  (let [app (proxy [App] [
+  (if (uberjar-missing project)
+    (log-error "Uberjar file not found! Have you run `lein uberjar' yet?`")
+    (let [app (proxy [App] [
           "lein-heroku"
           (get-in project [:heroku :app-name])
           (root-file project)
@@ -27,15 +35,15 @@
           (logWarn [msg] (log-warn msg))
           (logInfo [msg] (main/info msg))
           (logDebug [msg] (main/debug msg)))]
-    (.deploy app
-      (map (fn [x] (root-file project x)) (or
-        (:include-files (:heroku project))
-        [(file-join "target" (:uberjar-name project))]))
-      {}
-      (or (:jdk-version (:heroku project)) "1.8")
-      "cedar-14"
-      (or (:process-types (:heroku project)) {})
-      "slug.tgz")))
+      (.deploy app
+        (map (fn [x] (root-file project x)) (or
+          (:include-files (:heroku project))
+          [(file-join "target" (:uberjar-name project))]))
+        {}
+        (or (:jdk-version (:heroku project)) "1.8")
+        "cedar-14"
+        (or (:process-types (:heroku project)) {})
+        "slug.tgz"))))
 
 (defn- deploy-lein
   "Deploy directories and dependencies to Heroku"
