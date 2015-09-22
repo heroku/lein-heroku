@@ -1,4 +1,4 @@
-Heroku Leiningen Plugin
+Heroku Leiningen Plugin [![Build Status](https://travis-ci.org/heroku/lein-heroku.svg?branch=master)](https://travis-ci.org/heroku/lein-heroku)
 =================
 
 This plugin is used to deploy Clojure applications directly to Heroku without pushing to a Git repository.
