@@ -11,7 +11,7 @@ This is can be useful when deploying from a CI server or when the Leiningen buil
 
 ## Using the Plugin
 
-Add the following to your `project.clj` file:
+Add the following to your `project.clj` file's `:plugins` vector:
 
  [![Clojars Project](http://clojars.org/lein-heroku/latest-version.svg)](http://clojars.org/lein-heroku)
 
