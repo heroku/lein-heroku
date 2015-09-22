@@ -1,4 +1,4 @@
-Heroku Leiningen Plugin
+Heroku Leiningen Plugin [![Clojars Project](http://clojars.org/lein-heroku/latest-version.svg)](http://clojars.org/lein-heroku)
 =================
 
 This plugin is used to deploy Clojure applications directly to Heroku without pushing to a Git repository.
