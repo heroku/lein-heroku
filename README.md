@@ -15,7 +15,7 @@ Add the following to your `project.clj` file's `:plugins` vector:
 
  [![Clojars Project](http://clojars.org/lein-heroku/latest-version.svg)](http://clojars.org/lein-heroku)
 
-Next, add something like this to your `project.clj` if you do not have a Heroku Git repo in your `git remote`s.
+If you do not have a Heroku Git repo in your `git remote`, add something like this to your `project.clj`:
 
 ```clj
 :heroku {:app-name "your-heroku-app-name"}
