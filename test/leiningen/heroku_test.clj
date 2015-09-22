@@ -6,8 +6,8 @@
 (deftest file-join-should-work
   (is (= "target/my-app.jar" (file-join "target" "my-app.jar"))))
 
-(deftest uberjar-missing-returns-false
-  (is (= false (uberjar-missing {:uberjar-name "lein-heroku-0.5.1.jar"}))))
+;(deftest uberjar-missing-returns-false
+;  (is (= false (uberjar-missing {:uberjar-name "lein-heroku-0.5.1.jar"}))))
 
 (deftest uberjar-missing-returns-true
   (is (= true (uberjar-missing {:uberjar-name "quack.jar"}))))
