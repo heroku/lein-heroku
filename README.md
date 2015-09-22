@@ -14,7 +14,7 @@ This is can be useful when deploying from a CI server or when the Leiningen buil
 Add the following to your `project.clj` file:
 
 ```clj
-:plugins [lein-heroku "0.4.4"]
+:plugins [lein-heroku "0.5.1"]
 ```
 
 Next, add something like this to your `project.clj` if you do not have a Heroku Git repo in your `git remote`s.
@@ -49,8 +49,7 @@ You may set a `:heroku` element in your `project.clj` like so:
   :process-types { "web" "java -jar target/myapp.jar" }}
 ```
 
-By default, the plugin will include the `target` directory for Uberjar.
-Otherwise it will include the `target`, `src`, `resource`, and `project.clj`.
+By default, the plugin will include the `target` directory.
 
 
 ## License
