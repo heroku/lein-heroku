@@ -31,7 +31,7 @@
   :main happy-path.core
 
   :plugins [[lein-environ "1.0.0"]
-            [lein-heroku "0.4.4"]]
+            [lein-heroku "@project_version@"]]
   :profiles
   {:uberjar {:omit-source true
              :env {:production true}

@@ -8,5 +8,5 @@
     [com.fasterxml.jackson.core/jackson-core "2.2.0"]
     [com.fasterxml.jackson.core/jackson-annotations "2.2.0"]
     [com.fasterxml.jackson.core/jackson-databind "2.2.0"]]
-  :plugins [[lein-invoke "0.1.1"]]
+  :plugins [[lein-invoke "0.1.2"]]
   :eval-in-leiningen true)
