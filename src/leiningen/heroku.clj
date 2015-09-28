@@ -38,7 +38,7 @@
       (.deploy app
         (map (fn [x] (root-file project x)) (or
           (:include-files (:heroku project))
-          [(file-join "target" (:uberjar-name project))]))
+          [(file-join "target" (:uberjar-name project)) "project.clj"]))
         {}
         (or (:jdk-version (:heroku project)) "1.8")
         "cedar-14"
