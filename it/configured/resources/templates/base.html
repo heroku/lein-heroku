@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Welcome to happy-path</title>
+  </head>
+  <body>
+    <!-- navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="{{servlet-context}}/">happy-path</a>
+        </div>
+        <div class="navbar-collapse collapse ">
+          <ul class="nav navbar-nav">
+            <li {% ifequal page "home.html" %} class="active"{%endifequal%}>
+              <a href="{{servlet-context}}/">Home</a>
+            </li>
+            <li {% ifequal page "about.html" %} class="active"{%endifequal%}>
+              <a href="{{servlet-context}}/about">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+    <!-- scripts and styles -->
+    {% style "/assets/bootstrap/css/bootstrap.min.css" %}
+    {% style "/assets/bootstrap/css/bootstrap-theme.min.css" %}
+    {% style "/css/screen.css" %}
+
+    {% script "/assets/jquery/jquery.min.js" %}
+    {% script "/assets/bootstrap/js/bootstrap.min.js" %}
+
+    <script type="text/javascript">
+      var context = "{{servlet-context}}";
+    </script>
+    {% block page-scripts %}
+    {% endblock %}
+  </body>
+</html>
+
