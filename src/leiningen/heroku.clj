@@ -31,7 +31,7 @@
           (get-in project [:heroku :app-name])
           (root-file project)
           (root-file project "target")
-          []]
+          (or (:buildpacks (:heroku project)) [])]
           (logWarn [msg] (log-warn msg))
           (logInfo [msg] (main/info msg))
           (logDebug [msg] (main/debug msg)))]
