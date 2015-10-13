@@ -3,10 +3,6 @@
    [:exec "heroku" "create" app-name]
    [:lein "uberjar"]
    [:lein "heroku" "deploy"]
-   [:exec "sleep" "10"]
-   [:contains?
-    "Welcome to happy-path"
-    [:get (str "http://" app-name ".herokuapp.com")]]
    [:contains?
     "/usr/bin/java"
     [:exec "heroku" "run" "which java"]]
