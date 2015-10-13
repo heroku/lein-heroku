@@ -1,4 +1,4 @@
-(defproject lein-heroku "0.5.3"
+(defproject lein-heroku "0.5.4-SNAPSHOT"
   :description "Leiningen plugin that deploys to Heroku"
   :url "https://github.com/heroku/lein-heroku"
   :license {:name "Eclipse Public License"
