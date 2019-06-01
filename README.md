@@ -9,6 +9,12 @@ This is can be useful when deploying from a CI server or when the Leiningen buil
 +  Your application must be built as an [uberjar](https://github.com/technomancy/leiningen/blob/master/doc/TUTORIAL.md#uberjar).
 +  You must use Java 1.7 or higher locally.
 
+## Alternatives for Java 1.9+
+
+Heroku can also accept uberjars via the [heroku-cli-deploy](https://devcenter.heroku.com/articles/deploying-executable-jar-files#using-the-heroku-java-cli-plugin) plugin for deploying jars directly. For example: `heroku plugins:install java && lein uberjar && heroku deploy:jar target/my-app.jar --app "my-app-name"`.
+
+(See also the [heroku-cli-deploy README](https://github.com/heroku/heroku-cli-deploy#customizing-your-deployment) regarding customization and `Procfile`.
+
 ## Using the Plugin
 
 Add the following to your `project.clj` file's `:plugins` vector:
