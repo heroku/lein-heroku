@@ -5,11 +5,12 @@ This plugin is used to deploy Clojure applications directly to Heroku without pu
 This is can be useful when deploying from a CI server or when the Leiningen build is complex.
 
 ## Deprecation Note
-`heroku-lein` is deprecated and no longer under active development. Existing setups using this plugin will continue to work for the forseeable future. However, we advice customers to migrate to a another deployment mechanism since this plugin will not be updated to include security fixes, support for more recent Java/Clojure versions or new features.
+⚠️ **`heroku-lein` is deprecated and no longer under active development.** Existing setups using this plugin will continue to work for the forseeable future. However, we advise customers to migrate to a another deployment mechanism since this plugin will not be updated to include security fixes, support for more recent Java/Clojure versions or new features.
 
 Customers that require deployment of pre-built uberjars can use [the Heroku Java CLI plugin](https://devcenter.heroku.com/articles/deploying-executable-jar-files#using-the-heroku-java-cli-plugin).
 
 For more information about the deployment of Clojure applications on Heroku, see [Deploying Clojure Apps on Heroku](https://devcenter.heroku.com/articles/deploying-clojure) on DevCenter.
+
 
 ## Requirements
 
