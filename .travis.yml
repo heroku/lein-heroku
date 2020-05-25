@@ -2,9 +2,6 @@ language: clojure
 sudo: true
 jdk:
 - openjdk8
-env:
-  global:
-  - secure: QF8mEdyc1JMIrdaqc4O/sg1gPby7Tm80utqfPT5GtIIRGUavixD69n0qZfiHuVyvGOPFDlqqGrB6VABefJw+nTxs1Mc0MkTVpv73erL9QKviYeCG8Uni8gex8PJPEulgRgPS/NpCn1bNA1YmyfN9jFwC80qlcVFOOF8EQSBQCG9CkSYVoYwNWQyWfylDfbzb25Xi0GhJzOpJsXtSl+2Jeh9L6RgWuaNPdrUNcs2AFqBaDIcZeh0DSx/YwskvOlav3GY/2PrwI6vwUd6XwB6AKmMtssrJfXGKX3CjBu1gvmGwaHatgEYXLCjbO6eGV7KYNiREb/BeftfmGOpuzm6lLbp2tOhKFUFoHFPgbW78ufb2u/0SBh6v+WTlkGjvpm++RTQAX6DE9Xqz0UuaJRttApnn9wZFEAdzOGUHWeDcpDYlN6NTmdGxVOhy9OZZMvvD/A1/IKzMA0umsGRMqVW2ZfLqZOwjHqqPbklDzhvkUFQEUCBqJjboMTsOqvKZcnKEZSbSLdtJjdlzdUv5o+0TYH3JL0pmSAIYJfi+5u/Jf1/rcjxTxSR6NrJ3pQap6rrghKL3DKo4D28YmHPULPZEgm7kOSoAe36D4bZrWpLhDLE9tHmsim3AV0nGMM2sOv1nC3kkE9It98/Po7G44iCotM+GxeaXkZ6w6UZ5vGL58Lk=
 install: "./etc/travis-setup.sh"
 script: lein install && lein test && lein invoke
 after_script: heroku keys:remove $USER@`hostname`
